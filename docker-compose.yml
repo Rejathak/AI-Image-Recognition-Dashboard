@@ -1,14 +1,20 @@
+version: '3.8'
+
 services:
   # The AI Backend Service
   backend:
-    build: ./ai-backend  # Path to the backend's Dockerfile
+    build:
+      context: ./ai-backend
+      dockerfile: Containerfile  # Changed from Dockerfile
     ports:
-      - "5000:5000"     # Map host port 5000 to container port 5000
+      - "5000:5000"     # ESSENTIAL: Exposes backend to localhost:5000
 
   # The Frontend Dashboard Service
   frontend:
-    build: ./frontend     # Path to the frontend's Dockerfile
+    build:
+      context: ./frontend
+      dockerfile: Containerfile  # Changed from Dockerfile
     ports:
-      - "80:80"         # Map host port 80 to container port 80
+      - "80:80"         # ESSENTIAL: Exposes frontend to localhost:80
     depends_on:
-      - backend         # Wait for the backend to start
+      - backend         # Tells compose to start the backend first
