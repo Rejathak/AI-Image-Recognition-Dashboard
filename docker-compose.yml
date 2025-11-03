@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  # The AI Backend Service
+  backend:
+    build: ./ai-backend  # Path to the backend's Dockerfile
+    ports:
+      - "5000:5000"     # Map host port 5000 to container port 5000
+
+  # The Frontend Dashboard Service
+  frontend:
+    build: ./frontend     # Path to the frontend's Dockerfile
+    ports:
+      - "80:80"         # Map host port 80 to container port 80
+    depends_on:
+      - backend         # Wait for the backend to start
